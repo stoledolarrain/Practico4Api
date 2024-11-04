@@ -14,6 +14,7 @@ import com.example.practico4api.ui.adapters.PersonAdapter
 import android.app.AlertDialog
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
+import com.example.practico4api.repositories.PersonaRepository
 
 class MainActivity : AppCompatActivity() {
 
@@ -79,16 +80,21 @@ class MainActivity : AppCompatActivity() {
                         intent.putExtra("person_id", person.id)
                         startActivity(intent)
                     }
-                    1 -> deletePerson(person)
+                    1 -> deletePersona(person)
                 }
             }
             .show()
     }
 
-    private fun deletePerson(person: Persona) {
-        Toast.makeText(this, "Contacto eliminado", Toast.LENGTH_SHORT).show()
-        viewModel.fetchPersonList()
+    private fun deletePersona(person: Persona) {
+        PersonaRepository.deletePersona(person.id, {
+            Toast.makeText(this, "Contacto eliminado", Toast.LENGTH_SHORT).show()
+            viewModel.fetchPersonList() // Actualiza la lista tras eliminar
+        }, { error ->
+            Toast.makeText(this, "Error al eliminar contacto: ${error.message}", Toast.LENGTH_SHORT).show()
+        })
     }
+
 
     override fun onResume() {
         super.onResume()

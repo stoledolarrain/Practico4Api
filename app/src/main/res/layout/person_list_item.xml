@@ -20,16 +20,6 @@
         tools:text="Juan Perez" />
 
     <!-- Empresa del contacto -->
-    <TextView
-        android:id="@+id/lblPersonCompany"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Empresa"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/lblPersonFullName"
-        tools:text="Acme Inc." />
 
     <!-- Ciudad del contacto -->
     <TextView
@@ -40,7 +30,7 @@
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/lblPersonCompany"
+        app:layout_constraintTop_toBottomOf="@+id/lblPersonFullName"
         tools:text="Santa Cruz" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

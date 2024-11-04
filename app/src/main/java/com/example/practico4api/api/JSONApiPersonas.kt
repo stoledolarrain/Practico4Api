@@ -3,6 +3,7 @@ package com.example.practico4api.api
 import com.example.practico4api.models.Persona
 import retrofit2.Call
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.PUT
@@ -21,4 +22,8 @@ interface JSONApiPersonas {
 
     @PUT("/api/personas/{id}")
     fun updatePersona(@Path("id") id: Long, @Body persona: Persona): Call<Void>
+
+    @DELETE("/api/personas/{id}")
+    fun deletePersona(@Path("id") id: Long): Call<Void>
+
 }

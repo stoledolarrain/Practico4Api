@@ -26,7 +26,7 @@ class MainViewModel : ViewModel() {
     fun searchByNameAndLastName(context: Context, nameQuery: String, lastNameQuery: String) {
         val fullList = _personList.value ?: return
         val filteredList = fullList.filter { person ->
-            person.name.contains(nameQuery, ignoreCase = true) ||
+            person.name.contains(nameQuery, ignoreCase = true) || // Ignora mayúsculas y minúsculas
                     person.last_name.contains(lastNameQuery, ignoreCase = true)
         }
         _filteredPersonList.value = filteredList

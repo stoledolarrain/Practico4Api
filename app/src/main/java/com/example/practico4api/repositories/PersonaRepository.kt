@@ -1,5 +1,6 @@
 package com.example.practico4api.repositories
 
+import android.widget.Toast
 import com.example.practico4api.api.JSONApiPersonas
 import com.example.practico4api.models.Persona
 import retrofit2.Call
@@ -76,6 +77,21 @@ object PersonaRepository {
                     onSuccess()
                 } else {
                     onError(Throwable("Error al agregar el contacto"))
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                onError(t)
+            }
+        })
+    }
+    fun deletePersona(id: Long, onSuccess: () -> Unit, onError: (Throwable) -> Unit) {
+        api.deletePersona(id).enqueue(object : Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                if (response.isSuccessful) {
+                    onSuccess()
+                } else {
+                    onError(Throwable("Error en la respuesta al eliminar"))
                 }
             }
 
