@@ -22,12 +22,18 @@ class PersonDetailActivity : AppCompatActivity() {
             loadPersonData(personId)
         }
 
+        // Configurar el botón Guardar
         binding.btnSavePerson.setOnClickListener {
             if (personId != -1L) {
                 updatePerson()
             } else {
                 addNewPerson()
             }
+        }
+
+        // Configurar el botón Cancelar
+        binding.btnCancelForm.setOnClickListener {
+            finish() // Cierra la actividad y regresa a la pantalla anterior sin guardar cambios
         }
     }
 

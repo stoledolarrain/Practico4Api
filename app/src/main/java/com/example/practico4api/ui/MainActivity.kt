@@ -2,6 +2,7 @@ package com.example.practico4api
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,6 +13,7 @@ import com.example.practico4api.ui.PersonDetailActivity
 import com.example.practico4api.ui.adapters.PersonAdapter
 import android.app.AlertDialog
 import android.widget.Toast
+import androidx.appcompat.widget.SearchView
 
 class MainActivity : AppCompatActivity() {
 
@@ -25,19 +27,13 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setupRecyclerView()
+        setupEventListeners()
 
-        // Configura el FAB para abrir PersonDetailActivity
-        binding.fabAddPerson.setOnClickListener {
-            val intent = Intent(this, PersonDetailActivity::class.java)
-            startActivity(intent)
-        }
-
-        // Observa el LiveData de la lista de personas
-        viewModel.personList.observe(this) { personList ->
+        // Observa la lista filtrada de personas
+        viewModel.filteredPersonList.observe(this) { personList ->
             personAdapter.updateData(personList)
         }
 
-        // Llamar a fetchPersonList para cargar los datos desde la API
         viewModel.fetchPersonList()
     }
 
@@ -51,35 +47,51 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun setupEventListeners() {
+        binding.fabAddPerson.setOnClickListener {
+            val intent = Intent(this, PersonDetailActivity::class.java)
+            startActivity(intent)
+        }
+
+        //Buscar
+        binding.txtSearchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
+            android.widget.SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                Log.d("SEARCH", newText ?: "")
+                viewModel.searchByNameAndLastName(this@MainActivity, newText ?: "", newText ?: "")
+                return false
+            }
+        })
+    }
+
     private fun showOptionsDialog(person: Persona) {
         val options = arrayOf("Editar", "Eliminar")
         AlertDialog.Builder(this)
             .setTitle("Selecciona una opción")
             .setItems(options) { _, which ->
                 when (which) {
-                    0 -> { // Editar
+                    0 -> {
                         val intent = Intent(this, PersonDetailActivity::class.java)
                         intent.putExtra("person_id", person.id)
                         startActivity(intent)
                     }
-                    1 -> { // Eliminar
-                        deletePerson(person)
-                    }
+                    1 -> deletePerson(person)
                 }
             }
             .show()
     }
 
     private fun deletePerson(person: Persona) {
-        // Implementación para eliminar el contacto de la API
-        // Puedes llamar a un método en PersonaRepository para eliminar
-        // Luego, vuelve a cargar la lista para actualizar el RecyclerView
         Toast.makeText(this, "Contacto eliminado", Toast.LENGTH_SHORT).show()
-        viewModel.fetchPersonList() // Vuelve a cargar la lista para reflejar los cambios
+        viewModel.fetchPersonList()
     }
 
     override fun onResume() {
         super.onResume()
-        viewModel.fetchPersonList()  // Vuelve a cargar la lista de contactos al regresar a MainActivity
+        viewModel.fetchPersonList()
     }
 }

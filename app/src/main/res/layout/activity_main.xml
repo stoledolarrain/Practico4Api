@@ -5,20 +5,22 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.MainActivity">
+    tools:context="MainActivity">
 
     <!-- SearchView para buscar contactos -->
+
+    <!-- RecyclerView para la lista de contactos -->
     <SearchView
         android:id="@+id/txtSearchView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:iconifiedByDefault="false"
         android:queryHint="Buscar contactos"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- RecyclerView para la lista de contactos -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvPersonList"
         android:layout_width="0dp"

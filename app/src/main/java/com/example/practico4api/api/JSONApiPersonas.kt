@@ -9,6 +9,7 @@ import retrofit2.http.PUT
 import retrofit2.http.Path
 
 interface JSONApiPersonas {
+
     @GET("/api/personas")
     fun getPersonaList(): Call<List<Persona>>
 
