@@ -25,18 +25,18 @@ class PersonAdapter(
         }
     }
 
+    //infla
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PersonViewHolder {
         val binding = PersonListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return PersonViewHolder(binding)
     }
-
+    //Asigna
     override fun onBindViewHolder(holder: PersonViewHolder, position: Int) {
         holder.bind(personList[position])
     }
 
     override fun getItemCount(): Int = personList.size
-
-    // Método para actualizar la lista de datos en el adaptador
+    //Actualiza
     fun updateData(newPersonList: List<Persona>) {
         personList = newPersonList
         notifyDataSetChanged()

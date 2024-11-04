@@ -19,7 +19,7 @@ class MainViewModel : ViewModel() {
     fun fetchPersonList() {
         PersonaRepository.getPersonas { personList ->
             _personList.value = personList
-            _filteredPersonList.value = personList // Inicialmente, lista completa
+            _filteredPersonList.value = personList
         }
     }
 

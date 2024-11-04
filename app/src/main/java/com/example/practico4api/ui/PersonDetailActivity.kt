@@ -22,18 +22,16 @@ class PersonDetailActivity : AppCompatActivity() {
             loadPersonData(personId)
         }
 
-        // Configurar el botón Guardar
         binding.btnSavePerson.setOnClickListener {
-            if (personId != -1L) {
+            if (personId != -1L) { //significa que sí tenemos un ID específico de un contacto que ya existe y que queremos actualizar.
                 updatePerson()
             } else {
                 addNewPerson()
             }
         }
 
-        // Configurar el botón Cancelar
         binding.btnCancelForm.setOnClickListener {
-            finish() // Cierra la actividad y regresa a la pantalla anterior sin guardar cambios
+            finish()
         }
     }
 
